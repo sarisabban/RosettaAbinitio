@@ -69,7 +69,7 @@ cd $PBS_O_WORKDIR
 grep SCORE ./relax.out | awk '{print $20 "\t" $2}' > ./relax.dat
 sed -i '/rms/d' relax.dat
 {ROSETTA}/main/source/bin/combine_silent.default.linuxgccrelease -in:file:silent ./fold_silent_*.out -out:file:silent ./fold.out
-grep SCORE ./fold.out | awk '{print $28 "\t" $2}' > ./fold.dat
+grep SCORE ./fold.out | awk '{print $28 "\t" $29}' > ./fold.dat
 tail -n +2 "./fold.dat" > "./fold.dat.tmp" && mv "./fold.dat.tmp" "./fold.dat"
 mkdir ./cluster
 grep SCORE ./fold.out | sort -nk +2 | head -200 | awk '{print $31}' > ./list
