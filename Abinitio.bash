@@ -1,5 +1,7 @@
 #!/bin/bash
 
+#Written by Sari Sabban on 2-July-2017. For communication email me at sari.sabban@gmail.com
+
 cat << 'EOF' > abinitio.pbs
 #!/bin/bash
 #PBS -N Abinitio
