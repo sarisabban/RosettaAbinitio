@@ -23,7 +23,7 @@ Written by Sari Sabban on 2-July-2017. For communication email me at sari.sabban
 | 4 | structure.fasta       | The structure's sequence file in FASTA format  |
 | 5 | t000_.psipred_ss2     | The PsiPred prediction file                    |
 
-5. Execute this script from within the working directory to generate all nessesary files and folders using this command:
+5. Execute this script from within the working directory to generate all necessary files and folders using this command:
 
 `bash Abinitio.bash`
 
