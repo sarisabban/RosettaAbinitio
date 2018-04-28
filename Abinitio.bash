@@ -94,4 +94,3 @@ gnuplot < gnuplot_sets
 sleep 1
 rm gnuplot_sets
 EOF
-qsub abinitio.pbs && qsub -W depend=after:${PBS_ARRAY_ID} cluster.pbs
