@@ -34,49 +34,27 @@ cat << 'EOF' > cluster.pbs
 #PBS -j oe
 
 cd $PBS_O_WORKDIR
-sleep 1
 {ROSETTA}/main/source/bin/relax.default.linuxgccrelease -database {ROSETTA}/main/database -s ./structure.pdb -native ./structure.pdb -relax:thorough -in:file:fullatom -nooutput -nstruct 100 -out:file:silent ./relax.out
-sleep 1
 grep SCORE ./relax.out | awk '{print $20 "\t" $2}' > ./relax.dat
-sleep 1
 sed -i '/rms/d' relax.dat
-sleep 1
 {ROSETTA}/main/source/bin/combine_silent.default.linuxgccrelease -in:file:silent ./fold_silent_*.out -out:file:silent ./fold.out
-sleep 1
 grep SCORE ./fold.out | awk '{print $28 "\t" $29}' > ./fold.dat
-sleep 1
 tail -n +2 "./fold.dat" > "./fold.dat.tmp" && mv "./fold.dat.tmp" "./fold.dat"
-sleep 1
 mkdir ./cluster
-sleep 1
 grep SCORE ./fold.out | sort -nk +2 | head -200 | awk '{print $31}' > ./list
-sleep 1
 cat ./list | awk '{print}' ORS=" " > ./liststring
-sleep 1
 xargs {ROSETTA}/main/source/bin/extract_pdbs.linuxgccrelease -in::file::silent ./fold.out -out:pdb -in:file:tags < ./liststring
-sleep 1
 rm ./list
-sleep 1
 rm ./liststring
-sleep 1
 rm ./*.fsc
-sleep 1
 rm ./fold_silent_*
-sleep 1
 rm ./Abinitio.o*
-sleep 1
 mv *_*.pdb ./cluster
-sleep 1
 cd ./cluster
-sleep 1
 {ROSETTA}/main/source/bin/cluster.default.linuxgccrelease -database {ROSETTA}/main/database -in:file:fullatom -cluster:radius 3 -nooutput -out:file:silent ./cluster.out -in:file:s ./*.pdb
-sleep 1
 rm ./*.pdb
-sleep 1
 {ROSETTA}/main/source/bin/extract_pdbs.linuxgccrelease -in::file::silent ./cluster.out -out:pdb -in:file:tags
-sleep 1
 cd ..
-sleep 1
 echo "set terminal postscript
 set output './plot.pdf'
 set encoding iso_8859_1
@@ -89,8 +67,6 @@ set title 'Abinitio Result'
 plot './fold.dat' lc rgb 'red' pointsize 0.2 pointtype 7 title '', \
 './relax.dat' lc rgb 'green' pointsize 0.2 pointtype 7 title ''
 exit" > gnuplot_sets
-sleep 1
 gnuplot < gnuplot_sets
-sleep 1
 rm gnuplot_sets
 EOF
