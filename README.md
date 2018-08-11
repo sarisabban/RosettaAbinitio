@@ -17,11 +17,11 @@ Written by Sari Sabban on 2-July-2017. For communication email me at sari.sabban
 
 |   | File Name             | Description                                    |
 |---|-----------------------|------------------------------------------------|
-| 1 | aat000_03_05.200_v1_3 | The 3-mer fragment file                        |
-| 2 | aat000_09_05.200_v1_3 | The 9-mer fragment file                        |
+| 1 | frags.200.3mers       | The 3-mer fragment file                        |
+| 2 | frags.200.9mers       | The 9-mer fragment file                        |
 | 3 | structure.pdb         | The structure's PDB file                       |
 | 4 | structure.fasta       | The structure's sequence file in FASTA format  |
-| 5 | t000_.psipred_ss2     | The PsiPred prediction file                    |
+| 5 | pre.psipred.ss2       | The PsiPred prediction file                    |
 
 5. Execute this script from within the working directory to generate all necessary files and folders using this command:
 
