@@ -19,11 +19,11 @@ cat << 'EOF' > abinitio.pbs
 #PBS -l walltime=9:00:00
 #PBS -l select=1:ncpus=1
 #PBS -j oe
-#PBS -J 1-1000
+#PBS -J 1-42
 
 cd $PBS_O_WORKDIR
 module use /app/utils/modules && module load gcc-4.9.2
-for i in {1..2}; do
+for i in {1..24}; do
   {ROSETTA}/main/source/bin/AbinitioRelax.default.linuxgccrelease -database {ROSETTA}/main/database -in:file:frag3 ./frags.200.3mers -in:file:frag9 ./frags.200.9mers -in:file:fasta ./structure.fasta -in:file:native ./structure.pdb -psipred_ss2 ./pre.psipred.ss2 -nstruct 25 -abinitio:relax -use_filters true -abinitio::increase_cycles 10 -abinitio::rg_reweight 0.5 -abinitio::rsd_wt_helix 0.5 -abinitio::rsd_wt_loop 0.5 -relax::fast -out:file:silent ./fold_silent_$i-${PBS_ARRAY_INDEX}.out &
 done
 wait
