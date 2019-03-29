@@ -24,7 +24,22 @@ cat << 'EOF' > abinitio.pbs
 cd $PBS_O_WORKDIR
 module use /app/utils/modules && module load gcc-4.9.2
 for i in {1..24}; do
-  {ROSETTA}/main/source/bin/AbinitioRelax.default.linuxgccrelease -database {ROSETTA}/main/database -in:file:frag3 ./frags.200.3mers -in:file:frag9 ./frags.200.9mers -in:file:fasta ./structure.fasta -in:file:native ./structure.pdb -psipred_ss2 ./pre.psipred.ss2 -nstruct 25 -abinitio:relax -use_filters true -abinitio::increase_cycles 10 -abinitio::rg_reweight 0.5 -abinitio::rsd_wt_helix 0.5 -abinitio::rsd_wt_loop 0.5 -relax::fast -out:file:silent ./fold_silent_$i-${PBS_ARRAY_INDEX}.out &
+  {ROSETTA}/main/source/bin/AbinitioRelax.default.linuxgccrelease \
+    -database {ROSETTA}/main/database \
+    -in:file:native ./structure.pdb \
+    -in:file:fasta ./structure.fasta \
+    -in:file:frag3 ./frags.200.3mers \
+    -in:file:frag9 ./frags.200.9mers \
+    -psipred_ss2 ./pre.psipred.ss2 \
+    -nstruct 25 \
+    -abinitio:relax \
+    -use_filters true \
+    -abinitio::increase_cycles 10 \
+    -abinitio::rg_reweight 0.5 \
+    -abinitio::rsd_wt_helix 0.5 \
+    -abinitio::rsd_wt_loop 0.5 \
+    -relax::fast \
+    -out:file:silent ./fold_silent_$i-${PBS_ARRAY_INDEX}.out &
 done
 wait
 EOF
@@ -68,8 +83,7 @@ set ylabel 'Score'
 set yrange [:-80]
 set xrange [0:20]
 set title 'Abinitio Result'
-plot './fold.dat' lc rgb 'red' pointsize 0.2 pointtype 7 title '', \
-'./relax.dat' lc rgb 'green' pointsize 0.2 pointtype 7 title ''
+plot './fold.dat' lc rgb 'red' pointsize 0.2 pointtype 7 title '', './relax.dat' lc rgb 'green' pointsize 0.2 pointtype 7 title ''
 exit" > gnuplot_sets
 gnuplot < gnuplot_sets
 rm gnuplot_sets
