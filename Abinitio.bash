@@ -16,7 +16,7 @@ cat << 'EOF' > abinitio.pbs
 #!/bin/bash
 #PBS -N Abinitio
 #PBS -q thin
-#PBS -l walltime=9:00:00
+#PBS -l walltime=09:00:00
 #PBS -l select=1:ncpus=1
 #PBS -j oe
 #PBS -J 1-42
@@ -48,7 +48,7 @@ cat << 'EOF' > cluster.pbs
 #!/bin/bash
 #PBS -N Clustering
 #PBS -q thin
-#PBS -l walltime=9:00:00
+#PBS -l walltime=09:00:00
 #PBS -l select=1:ncpus=1
 #PBS -j oe
 
