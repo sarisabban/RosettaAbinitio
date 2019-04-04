@@ -42,19 +42,28 @@ for i in {1..24}; do
     -out:file:silent ./fold_silent_$i-${PBS_ARRAY_INDEX}.out &
 done
 wait
+/fefs1/generic/ssabban/_Rosetta/main/source/bin/relax.default.linuxgccrelease \
+    -database /fefs1/generic/ssabban/_Rosetta/main/database \
+    -s ./structure.pdb \
+    -native ./structure.pdb \
+    -relax:thorough \
+    -in:file:fullatom \
+    -nooutput \
+    -nstruct 1 \
+    -out:file:silent ./relax_${PBS_ARRAY_INDEX}.out
 EOF
 
 cat << 'EOF' > cluster.pbs
 #!/bin/bash
 #PBS -N Clustering
 #PBS -q thin
-#PBS -l walltime=09:00:00
-#PBS -l select=1:ncpus=1
+#PBS -l walltime=03:00:00
+#PBS -l select=1:ncpus=24
 #PBS -j oe
 
 cd $PBS_O_WORKDIR
-{ROSETTA}/main/source/bin/relax.default.linuxgccrelease -database {ROSETTA}/main/database -s ./structure.pdb -native ./structure.pdb -relax:thorough -in:file:fullatom -nooutput -nstruct 100 -out:file:silent ./relax.out
-grep SCORE ./relax.out | awk '{print $22 "\t" $2}' > ./relax.dat
+/fefs1/generic/ssabban/_Rosetta/main/source/bin/combine_silent.default.linuxgccrelease -in:file:silent ./relax_*.out -out:file:silent ./relax.out
+grep SCORE ./relax.out | awk '{print $23 "\t" $24}' > ./relax.dat
 sed -i '/rms/d' relax.dat
 {ROSETTA}/main/source/bin/combine_silent.default.linuxgccrelease -in:file:silent ./fold_silent_*.out -out:file:silent ./fold.out
 grep SCORE ./fold.out | awk '{print $30 "\t" $31}' > ./fold.dat
@@ -66,6 +75,7 @@ xargs {ROSETTA}/main/source/bin/extract_pdbs.linuxgccrelease -in::file::silent .
 rm ./list
 rm ./liststring
 rm ./*.fsc
+rm ./relax_*
 rm ./fold_silent_*
 rm ./Abinitio.o*
 mv *_*.pdb ./cluster
