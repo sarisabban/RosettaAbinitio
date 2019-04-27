@@ -62,7 +62,7 @@ cat << 'EOF' > cluster.pbs
 #PBS -j oe
 
 cd $PBS_O_WORKDIR
-/fefs1/generic/ssabban/_Rosetta/main/source/bin/combine_silent.default.linuxgccrelease -in:file:silent ./relax_*.out -out:file:silent ./relax.out
+{ROSETTA}/main/source/bin/combine_silent.default.linuxgccrelease -in:file:silent ./relax_*.out -out:file:silent ./relax.out
 grep SCORE ./relax.out | awk '{print $23 "\t" $24}' > ./relax.dat
 sed -i '/rms/d' relax.dat
 {ROSETTA}/main/source/bin/combine_silent.default.linuxgccrelease -in:file:silent ./fold_silent_*.out -out:file:silent ./fold.out
