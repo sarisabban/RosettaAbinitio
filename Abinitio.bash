@@ -42,8 +42,8 @@ for i in {1..24}; do
     -out:file:silent ./fold_silent_$i-${PBS_ARRAY_INDEX}.out &
 done
 wait
-/fefs1/generic/ssabban/_Rosetta/main/source/bin/relax.default.linuxgccrelease \
-    -database /fefs1/generic/ssabban/_Rosetta/main/database \
+{ROSETTA}/main/source/bin/relax.default.linuxgccrelease \
+    -database {ROSETTA}/main/database \
     -s ./structure.pdb \
     -native ./structure.pdb \
     -relax:thorough \
