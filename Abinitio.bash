@@ -84,7 +84,7 @@ cd ./cluster
 rm ./*.pdb
 {ROSETTA}/main/source/bin/extract_pdbs.linuxgccrelease -in::file::silent ./cluster.out -out:pdb -in:file:tags
 cd ..
-echo "set terminal postscript
+echo "set terminal pdfcairo
 set output './plot.pdf'
 set encoding iso_8859_1
 set term post eps enh color
