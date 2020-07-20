@@ -2,7 +2,7 @@
 A Bash Script For A Completely Automated Rosetta Abinitio Protocol.
 
 ## Description:
-This is a Bash script that automatically sets the correct files and folders then automatically submitts a calculation job to run Rosetta Abinitio (default for 25,000 decoys) followed by Clustering (lowest 200 scoring decoys) followed by plotting the computation result (Score vs RMSD). This script is to be run on a HPC (High Preformace Computer) that uses PBS as its job scheduler.
+This is a Bash script that automatically sets the correct files and folders then automatically submitts a calculation job to run Rosetta Abinitio (default for 25,000 decoys) followed by Clustering (lowest 200 scoring decoys) followed by plotting the computation result (Score vs RMSD). This script is to be run on a HPC (High Preformace Computer) that uses PBS as its job scheduler. The script for the SLURM job scheduler is untested.
 
 Written by Sari Sabban on 2-July-2017. For communication email me at sari.sabban@gmail.com
 
@@ -12,7 +12,11 @@ Here is a [video](https://youtu.be/y6-1UUEf4Pw) that explains the script and how
 2. It goes without saying that you need to download and compile the [Rosetta modeling software](https://www.rosettacommons.org) to be able to use this script. Good understanding of how Abinitio works in Rosetta will *GREATLY* help you modify this script to accomodate your HPC and your specific needs.
 3. Identify the path to Rosetta and update this script using this command:
 
-`sed -i 's^{ROSETTA}^PATH/TO/ROSETTA^g' Abinitio.bash`
+`sed -i 's^{ROSETTA}^PATH/TO/ROSETTA^g' Abinitio_pbs.bash`
+
+or
+
+`sed -i 's^{ROSETTA}^PATH/TO/ROSETTA^g' Abinitio_slurm.bash`
 
 4. Make sure you have all the nessesary input files in the working directory.
 
@@ -26,13 +30,16 @@ Here is a [video](https://youtu.be/y6-1UUEf4Pw) that explains the script and how
 
 5. Execute this script from within the working directory to generate all necessary files and folders using this command:
 
-`bash Abinitio.bash`
+`bash Abinitio_pbs.bash`
+
+or
+
+`bash Abinitio_slurm.bash`
+
+Then submit the generated files abinitio and cluster files as per your spesific job scheduler command (qsub for PBS and sbatch for SLURM).
 
 6. Make sure your HPC has gnuplot installed to allow for the final result to be generated into a PDF plot. 
-7. This script is setup to run using the PBS job scheduler, simple changes can be made to make it work on other job schedulers, but thorough understading of each job scheduler is nessesary to make these modifications.
 
-8. The default computation settings are for normal Abinitio computation (25,000 decoys). You will have to run the following command to change the script to allow it to run a larger computation (1,000,000 decoys):
+7. The default computation settings are for normal Abinitio computation (25,000 decoys). You will have to change the *array* and *-nstruct* values to acheive 1,000,000 decoys that is sometimes required for publications.
 
-`sed -i '/#PBS -l walltime=9:00:00/d' Abinitio.bash && sed -i 's/thin/thin_1m/g' Abinitio.bash && sed -i 's/-nstruct 25/-nstruct 1000/g' Abinitio.bash`
-
-9. Running the script will automatically generate the submission files and then automatically submit them.
+8. Running the script will automatically generate the submission files and then automatically submit them.
