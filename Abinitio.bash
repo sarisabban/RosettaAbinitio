@@ -5,11 +5,7 @@ Written by Sari Sabban on 2-July-2017. For communication email me at sari.sabban
 
 To generate the files just run the following command:
 bash ~/Abinitio.bash
-Then submit the abinitio.pbs file first, and once it is done submit the cluster.pbs file.
-
-To run both .pbs files, one after the other, use the following command:
-bash ~/Abinitio.bash && qsub abinitio.pbs && qsub -W depend=after:${PBS_ARRAY_ID} cluster.pbs
-But this does not always works and can result in errors.
+Then submit the abinitio.pbs script first, and once it is done submit the cluster.pbs script.
 COMMENT
 #---------------------------------------------------------------------------------------------------------------
 cat << 'EOF' > abinitio.pbs
