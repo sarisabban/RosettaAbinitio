@@ -4,7 +4,7 @@
 Written by Sari Sabban on 2-July-2017. For communication email me at sari.sabban@gmail.com
 
 To generate the files just run the following command:
-bash ~/Abinitio.bash
+bash ~/Abinitio_pbs.bash
 Then submit the abinitio.pbs script first, and once it is done submit the cluster.pbs script.
 COMMENT
 #---------------------------------------------------------------------------------------------------------------
