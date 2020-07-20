@@ -17,7 +17,7 @@ cat << 'EOF' > abinitio.pbs
 #PBS -N Abinitio
 #PBS -q thin
 #PBS -l walltime=09:00:00
-#PBS -l select=1:ncpus=1
+#PBS -l select=1:ncpus=24
 #PBS -j oe
 #PBS -J 1-42
 
