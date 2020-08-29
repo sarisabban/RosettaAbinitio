@@ -11,9 +11,8 @@ COMMENT
 cat << 'EOF' > abinitio.slurm
 #!/bin/bash
 #SBATCH ---job-name=Abinitio
-#SBATCH --output=Abinitio.out
-#SBATCH --error=Abinitio.err
 #SBATCH --time=09:00:00
+#SBATCH --nodes=1
 #SBATCH --ntasks=24
 #SBATCH --array=1-42
 
@@ -52,9 +51,8 @@ EOF
 cat << 'EOF' > cluster.slurm
 #!/bin/bash
 #SBATCH ---job-name=Clustering
-#SBATCH --output=Clustering.out
-#SBATCH --error=Clustering.err
 #SBATCH --time=03:00:00
+#SBATCH --nodes=1
 #SBATCH --ntasks=24
 
 cd $SLURM_SUBMIT_DIR
