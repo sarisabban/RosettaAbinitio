@@ -10,7 +10,7 @@ COMMENT
 #---------------------------------------------------------------------------------------------------------------
 cat << 'EOF' > abinitio.slurm
 #!/bin/bash
-#SBATCH ---job-name=Abinitio
+#SBATCH --job-name=Abinitio
 #SBATCH --time=09:00:00
 #SBATCH --nodes=1
 #SBATCH --ntasks=24
@@ -50,7 +50,7 @@ EOF
 
 cat << 'EOF' > cluster.slurm
 #!/bin/bash
-#SBATCH ---job-name=Clustering
+#SBATCH --job-name=Clustering
 #SBATCH --time=03:00:00
 #SBATCH --nodes=1
 #SBATCH --ntasks=24
